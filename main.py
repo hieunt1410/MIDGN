@@ -43,12 +43,12 @@ def main():
     bundle_train_data, bundle_eval_data, item_data, assist_data = \
             dataset.get_dataset(CONFIG['path'], CONFIG['dataset_name'], task=CONFIG['task'])
 
-    train_loader = DataLoader(bundle_train_data, 65536, True,
-                              num_workers=16, pin_memory=True)
-    eval_loader = DataLoader(bundle_eval_data, 4096, False,
-                             num_workers=16, pin_memory=True)
-    test_loader = DataLoader(bundle_test_data, 4096, False,
-                             num_workers=16, pin_memory=True)
+    train_loader = DataLoader(bundle_train_data, 512, True,
+                              num_workers=2, pin_memory=True)
+    eval_loader = DataLoader(bundle_eval_data, 512, False,
+                             num_workers=2, pin_memory=True)
+    test_loader = DataLoader(bundle_test_data, 512, False,
+                             num_workers=2, pin_memory=True)
 
     #  pretrain
     if 'pretrain' in CONFIG:
@@ -61,9 +61,9 @@ def main():
     bi_graph = assist_data.ground_truth_b_i
 
     #  metric
-    metrics = [Recall(20), NDCG(20),Precision(20), Recall(40), NDCG(40), Precision(40), Recall(80), NDCG(80), Precision(80)]
-    test_metrics = [Recall(20), NDCG(20), Precision(20), Recall(40), NDCG(40), Precision(40), Recall(80), NDCG(80),
-               Precision(80)]
+    metrics = [Recall(20), NDCG(20),Precision(20), Recall(30), NDCG(30), Precision(30), Recall(50), NDCG(50), Precision(50)]
+    test_metrics = [Recall(20), NDCG(20), Precision(20), Recall(30), NDCG(30), Precision(30), Recall(50), NDCG(50),
+               Precision(50)]
     TARGET = 'Recall@20'
 
     #  loss
